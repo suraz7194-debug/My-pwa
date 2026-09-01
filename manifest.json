@@ -1,0 +1,9 @@
+{
+    "name": "My Daily Tracker",
+    "short_name": "Daily Tracker",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#f2f4f7",
+    "theme_color": "#ffffff",
+    "description": "My first Progressive Web App"
+}
