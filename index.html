@@ -1,41 +1,1691 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Daily Tracker</title>
-  
-  <link rel="manifest" href="manifest.json">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    >
 
-    <link rel="stylesheet" href="style.css">
+    <meta
+        name="theme-color"
+        content="#0b1020"
+    >
+
+    <meta
+        name="description"
+        content="CEE Journey — personal CEE preparation tracker"
+    >
+
+    <meta
+        name="mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-capable"
+        content="yes"
+    >
+
+    <meta
+        name="apple-mobile-web-app-status-bar-style"
+        content="black-translucent"
+    >
+
+    <meta
+        name="apple-mobile-web-app-title"
+        content="CEE Journey"
+    >
+
+    <link
+        rel="manifest"
+        href="./manifest.json"
+    >
+
+    <link
+        rel="icon"
+        type="image/png"
+        sizes="192x192"
+        href="./icon-192.png"
+    >
+
+    <link
+        rel="apple-touch-icon"
+        href="./icon-192.png"
+    >
+
+    <title>CEE Journey</title>
+
+    <link
+        rel="stylesheet"
+        href="./style.css"
+    >
+
 </head>
+ 
 
 <body>
+  <!-- APP LAUNCH SCREEN -->
+<div id="appLaunchScreen">
 
-    <div class="app">
+    <div class="launch-content">
 
-        <h1>📱 My Daily Tracker</h1>
+        <div class="launch-logo">
+            <img src="./icon-192.png" alt="CEE Journey">
+        </div>
 
-        <p class="subtitle">My first website → future PWA</p>
+        <div class="launch-title">
+            CEE Journey
+        </div>
 
-        <div class="card">
+        <div class="launch-subtitle">
+            Your journey starts now.
+        </div>
 
-            <h2>Today's Task</h2>
+        <div class="launch-loader">
+            <span></span>
+        </div>
 
-            <p id="task">Study for CEE</p>
+    </div>
 
-            <button onclick="completeTask()">
-                ✅ Complete Task
+</div>
+
+<!-- =====================================================
+     APP
+===================================================== -->
+
+<div id="app">
+
+
+    <!-- =================================================
+         TOP BAR
+    ================================================== -->
+
+    <header class="topbar">
+
+        <div class="topbar-left">
+
+            <div class="app-logo">
+                🎯
+            </div>
+
+            <div class="app-title">
+
+                <h1>CEE Journey</h1>
+
+                <span>
+                    Preparation Command Center
+                </span>
+
+            </div>
+
+        </div>
+
+
+        <button
+            class="notification-btn"
+            id="notificationButton"
+            aria-label="Notifications">
+
+            🔔
+
+            <span
+                id="notificationDot"
+                class="notification-dot hidden">
+            </span>
+
+        </button>
+
+    </header>
+
+
+
+    <!-- =================================================
+         PAGE CONTENT
+    ================================================== -->
+
+    <main class="main-content">
+
+
+        <!-- =============================================
+             DASHBOARD
+        ============================================== -->
+
+        <section
+            id="dashboard"
+            class="page active-page">
+
+
+            <!-- PAGE TITLE -->
+
+            <div class="page-title">
+
+                <div>
+
+                    <span class="page-kicker">
+                        GOOD LUCK, FUTURE DOCTOR 👨‍⚕️
+                    </span>
+
+                    <h2>
+                        Your CEE Dashboard
+                    </h2>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 COUNTDOWN CARD
+            ========================================== -->
+
+            <div class="countdown-card">
+
+                <div class="countdown-main">
+
+                    <span class="card-kicker">
+                        CEE COUNTDOWN
+                    </span>
+
+                    <div class="days-row">
+
+                        <strong id="daysRemaining">
+                            --
+                        </strong>
+
+                        <span>
+                            DAYS
+                        </span>
+
+                    </div>
+
+                    <p id="countdownDate">
+                        Set your exam date
+                    </p>
+
+                </div>
+
+
+                <div class="target-box">
+
+                    <span>
+                        TARGET
+                    </span>
+
+                    <strong id="targetScoreDisplay">
+                        145+
+                    </strong>
+
+                    <small>
+                        / 200
+                    </small>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 TODAY'S OVERVIEW
+            ========================================== -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        TODAY
+                    </span>
+
+                    <h3>
+                        Your Overview
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div class="overview-grid">
+
+
+                <div class="overview-card">
+
+                    <div class="overview-icon study-icon">
+                        ⏱️
+                    </div>
+
+                    <div>
+
+                        <strong id="todayStudyTime">
+                            0m
+                        </strong>
+
+                        <span>
+                            Study Time
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <div class="overview-icon task-icon">
+                        ✓
+                    </div>
+
+                    <div>
+
+                        <strong id="todayCompletedTasks">
+                            0
+                        </strong>
+
+                        <span>
+                            Tasks Done
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <div class="overview-icon streak-icon">
+                        🔥
+                    </div>
+
+                    <div>
+
+                        <strong id="studyStreak">
+                            0
+                        </strong>
+
+                        <span>
+                            Day Streak
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <div class="overview-card">
+
+                    <div class="overview-icon mock-icon">
+                        📝
+                    </div>
+
+                    <div>
+
+                        <strong id="latestMockScore">
+                            --
+                        </strong>
+
+                        <span>
+                            Latest Mock
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 TODAY PROGRESS
+            ========================================== -->
+
+            <div class="progress-card">
+
+                <div class="progress-header">
+
+                    <div>
+
+                        <span>
+                            TODAY'S TARGET
+                        </span>
+
+                        <strong id="dailyStudyTargetText">
+                            0 / 8 hours
+                        </strong>
+
+                    </div>
+
+                    <strong id="dailyProgressPercent">
+                        0%
+                    </strong>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="dailyProgressBar"
+                        class="progress-value"
+                        style="width:0%">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 REALITY CHECK
+            ========================================== -->
+
+            <div class="reality-card">
+
+                <div class="reality-symbol">
+                    ⚠️
+                </div>
+
+                <div class="reality-content">
+
+                    <span>
+                        REALITY CHECK
+                    </span>
+
+                    <h3 id="realityMessage">
+                        Your CEE rank will be built by what
+                        you do today.
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 TODAY'S MISSIONS
+            ========================================== -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        MISSION CONTROL
+                    </span>
+
+                    <h3>
+                        Today's Missions
+                    </h3>
+
+                </div>
+
+                <button
+                    class="view-all-btn"
+                    onclick="showPage('tasks')">
+
+                    View All
+
+                </button>
+
+            </div>
+
+
+            <div
+                id="dashboardTasks"
+                class="dashboard-task-list">
+
+                <div class="empty-box">
+
+                    <div>
+                        📋
+                    </div>
+
+                    <strong>
+                        No missions yet
+                    </strong>
+
+                    <span>
+                        Add your first task for today.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- =========================================
+                 FOCUS BUTTON
+            ========================================== -->
+
+            <button
+                id="startFocusButton"
+                class="main-action-button">
+
+                <span class="action-icon">
+                    ▶
+                </span>
+
+                <span>
+
+                    <strong>
+                        START FOCUS SESSION
+                    </strong>
+
+                    <small>
+                        Block distractions & study
+                    </small>
+
+                </span>
+
             </button>
 
-            <p id="message"></p>
+        </section>
+
+
+
+        <!-- =============================================
+             TASKS
+        ============================================== -->
+
+        <section
+            id="tasks"
+            class="page">
+
+
+            <div class="page-title page-title-with-button">
+
+                <div>
+
+                    <span class="page-kicker">
+                        MISSION CONTROL
+                    </span>
+
+                    <h2>
+                        Today's Tasks
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="addTaskButton"
+                    class="header-action-button">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+
+            <!-- TASK SUMMARY -->
+
+            <div class="task-summary-card">
+
+                <div>
+
+                    <strong id="taskCompletedCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Completed
+                    </span>
+
+                </div>
+
+
+                <div class="summary-divider"></div>
+
+
+                <div>
+
+                    <strong id="taskRemainingCount">
+                        0
+                    </strong>
+
+                    <span>
+                        Remaining
+                    </span>
+
+                </div>
+
+
+                <div class="summary-progress">
+
+                    <div
+                        id="taskProgressBar"
+                        class="progress-value"
+                        style="width:0%">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                id="taskList"
+                class="task-list">
+
+                <div class="empty-box">
+
+                    <div>
+                        🎯
+                    </div>
+
+                    <strong>
+                        No tasks for today
+                    </strong>
+
+                    <span>
+                        Add your study missions.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             SYLLABUS
+        ============================================== -->
+
+        <section
+            id="syllabus"
+            class="page">
+
+
+            <div class="page-title">
+
+                <span class="page-kicker">
+                    CEE PREPARATION
+                </span>
+
+                <h2>
+                    Syllabus
+                </h2>
+
+            </div>
+
+
+
+            <!-- SUBJECT FILTER -->
+
+            <div class="subject-tabs">
+
+                <button
+                    class="subject-tab active"
+                    data-subject="Physics">
+
+                    Physics
+
+                </button>
+
+                <button
+                    class="subject-tab"
+                    data-subject="Chemistry">
+
+                    Chemistry
+
+                </button>
+
+                <button
+                    class="subject-tab"
+                    data-subject="Botany">
+
+                    Botany
+
+                </button>
+
+                <button
+                    class="subject-tab"
+                    data-subject="Zoology">
+
+                    Zoology
+
+                </button>
+
+                <button
+                    class="subject-tab"
+                    data-subject="MAT">
+
+                    MAT
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SUBJECT PROGRESS -->
+
+            <div class="subject-progress-card">
+
+                <div class="subject-progress-top">
+
+                    <div>
+
+                        <span id="currentSubjectName">
+                            Physics
+                        </span>
+
+                        <strong id="subjectProgressText">
+                            0%
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="progress-track">
+
+                    <div
+                        id="subjectProgressBar"
+                        class="progress-value"
+                        style="width:0%">
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <div
+                id="syllabusContainer"
+                class="syllabus-list">
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             MOCK TESTS
+        ============================================== -->
+
+        <section
+            id="mock"
+            class="page">
+
+
+            <div class="page-title page-title-with-button">
+
+                <div>
+
+                    <span class="page-kicker">
+                        PERFORMANCE
+                    </span>
+
+                    <h2>
+                        Mock Tests
+                    </h2>
+
+                </div>
+
+
+                <button
+                    id="addMockButton"
+                    class="header-action-button">
+
+                    +
+
+                </button>
+
+            </div>
+
+
+
+            <!-- SCORE COMPARISON -->
+
+            <div class="mock-score-card">
+
+                <div>
+
+                    <span>
+                        TARGET
+                    </span>
+
+                    <strong>
+                        <span id="mockTargetScore">
+                            145
+                        </span>
+                        <small>/200</small>
+                    </strong>
+
+                </div>
+
+
+                <div class="score-arrow">
+                    →
+                </div>
+
+
+                <div>
+
+                    <span>
+                        LATEST
+                    </span>
+
+                    <strong id="mockLatestScore">
+                        --
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MOCK HISTORY -->
+
+            <div class="section-header">
+
+                <div>
+
+                    <span class="section-kicker">
+                        HISTORY
+                    </span>
+
+                    <h3>
+                        Your Mock Tests
+                    </h3>
+
+                </div>
+
+            </div>
+
+
+            <div
+                id="mockList"
+                class="mock-list">
+
+                <div class="empty-box">
+
+                    <div>
+                        📝
+                    </div>
+
+                    <strong>
+                        No mock tests yet
+                    </strong>
+
+                    <span>
+                        Record your first mock result.
+                    </span>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =============================================
+             MORE / SETTINGS
+        ============================================== -->
+
+        <section
+            id="more"
+            class="page">
+
+
+            <div class="page-title">
+
+                <span class="page-kicker">
+                    SETTINGS
+                </span>
+
+                <h2>
+                    More
+                </h2>
+
+            </div>
+
+
+
+            <!-- GOAL -->
+
+            <button
+                id="goalSettingsButton"
+                class="settings-item">
+
+                <div class="settings-item-icon">
+                    🎯
+                </div>
+
+                <div class="settings-item-content">
+
+                    <strong>
+                        CEE Goal
+                    </strong>
+
+                    <span>
+                        Exam date & target score
+                    </span>
+
+                </div>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <!-- FOCUS -->
+
+            <button
+                id="focusSettingsButton"
+                class="settings-item">
+
+                <div class="settings-item-icon">
+                    ⏱️
+                </div>
+
+                <div class="settings-item-content">
+
+                    <strong>
+                        Focus Timer
+                    </strong>
+
+                    <span>
+                        Study session duration
+                    </span>
+
+                </div>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <!-- NOTIFICATIONS -->
+
+            <button
+                id="notificationSettingsButton"
+                class="settings-item">
+
+                <div class="settings-item-icon">
+                    🔔
+                </div>
+
+                <div class="settings-item-content">
+
+                    <strong>
+                        Reminders
+                    </strong>
+
+                    <span>
+                        Study alerts & notifications
+                    </span>
+
+                </div>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <!-- BACKUP -->
+
+            <button
+                id="backupButton"
+                class="settings-item">
+
+                <div class="settings-item-icon">
+                    💾
+                </div>
+
+                <div class="settings-item-content">
+
+                    <strong>
+                        Backup & Restore
+                    </strong>
+
+                    <span>
+                        Protect your preparation data
+                    </span>
+
+                </div>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+
+
+            <!-- RESET -->
+
+            <button
+                id="resetButton"
+                class="settings-item danger-setting">
+
+                <div class="settings-item-icon">
+                    🗑️
+                </div>
+
+                <div class="settings-item-content">
+
+                    <strong>
+                        Reset App
+                    </strong>
+
+                    <span>
+                        Delete all local data
+                    </span>
+
+                </div>
+
+                <span class="settings-arrow">
+                    ›
+                </span>
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+
+    <!-- =================================================
+         BOTTOM NAVIGATION
+    ================================================== -->
+
+    <nav class="bottom-navigation">
+
+        <button
+            class="bottom-nav-item active"
+            data-page="dashboard">
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            <span>
+                Home
+            </span>
+
+        </button>
+
+
+        <button
+            class="bottom-nav-item"
+            data-page="tasks">
+
+            <span class="nav-icon">
+                ✓
+            </span>
+
+            <span>
+                Tasks
+            </span>
+
+        </button>
+
+
+        <button
+            class="bottom-nav-item"
+            data-page="syllabus">
+
+            <span class="nav-icon">
+                📚
+            </span>
+
+            <span>
+                Syllabus
+            </span>
+
+        </button>
+
+
+        <button
+            class="bottom-nav-item"
+            data-page="mock">
+
+            <span class="nav-icon">
+                📝
+            </span>
+
+            <span>
+                Mocks
+            </span>
+
+        </button>
+
+
+        <button
+            class="bottom-nav-item"
+            data-page="more">
+
+            <span class="nav-icon">
+                ⋯
+            </span>
+
+            <span>
+                More
+            </span>
+
+        </button>
+
+    </nav>
+
+</div>
+
+
+
+<!-- =====================================================
+     ADD TASK MODAL
+===================================================== -->
+
+<div
+    id="taskModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-kicker">
+                    NEW MISSION
+                </span>
+
+                <h2>
+                    Add Task
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="taskModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <form id="taskForm">
+
+            <label>
+
+                Task Name
+
+                <input
+                    id="taskName"
+                    type="text"
+                    placeholder="Physics — 50 MCQs"
+                    required>
+
+            </label>
+
+
+            <label>
+
+                Subject
+
+                <select id="taskSubject">
+
+                    <option value="Physics">
+                        Physics
+                    </option>
+
+                    <option value="Chemistry">
+                        Chemistry
+                    </option>
+
+                    <option value="Botany">
+                        Botany
+                    </option>
+
+                    <option value="Zoology">
+                        Zoology
+                    </option>
+
+                    <option value="MAT">
+                        MAT
+                    </option>
+
+                    <option value="Other">
+                        Other
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <div class="form-two-column">
+
+                <label>
+
+                    Time
+
+                    <input
+                        id="taskTime"
+                        type="time">
+
+                </label>
+
+
+                <label>
+
+                    Priority
+
+                    <select id="taskPriority">
+
+                        <option value="normal">
+                            Normal
+                        </option>
+
+                        <option value="high">
+                            High
+                        </option>
+
+                        <option value="critical">
+                            Critical
+                        </option>
+
+                    </select>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="modal-primary-button">
+
+                ADD MISSION
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     MOCK MODAL
+===================================================== -->
+
+<div
+    id="mockModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-kicker">
+                    PERFORMANCE
+                </span>
+
+                <h2>
+                    Add Mock Test
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="mockModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <form id="mockForm">
+
+            <label>
+
+                Test Name
+
+                <input
+                    id="mockName"
+                    type="text"
+                    placeholder="Weekly Mock #1"
+                    required>
+
+            </label>
+
+
+            <div class="form-score-grid">
+
+                <label>
+
+                    Physics
+                    <small>/50</small>
+
+                    <input
+                        id="mockPhysics"
+                        type="number"
+                        min="0"
+                        max="50"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    Chemistry
+                    <small>/50</small>
+
+                    <input
+                        id="mockChemistry"
+                        type="number"
+                        min="0"
+                        max="50"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    Botany
+                    <small>/40</small>
+
+                    <input
+                        id="mockBotany"
+                        type="number"
+                        min="0"
+                        max="40"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    Zoology
+                    <small>/40</small>
+
+                    <input
+                        id="mockZoology"
+                        type="number"
+                        min="0"
+                        max="40"
+                        required>
+
+                </label>
+
+
+                <label>
+
+                    MAT
+                    <small>/20</small>
+
+                    <input
+                        id="mockMAT"
+                        type="number"
+                        min="0"
+                        max="20"
+                        required>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="modal-primary-button">
+
+                SAVE RESULT
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     GOAL MODAL
+===================================================== -->
+
+<div
+    id="goalModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-kicker">
+                    CEE GOAL
+                </span>
+
+                <h2>
+                    Goal Settings
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="goalModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <form id="goalForm">
+
+            <label>
+
+                CEE Exam Date
+
+                <input
+                    id="examDate"
+                    type="date"
+                    required>
+
+            </label>
+
+
+            <label>
+
+                Target Score
+
+                <input
+                    id="targetScore"
+                    type="number"
+                    min="1"
+                    max="200"
+                    value="145"
+                    required>
+
+            </label>
+
+
+            <label>
+
+                Daily Study Target
+
+                <select id="dailyStudyTarget">
+
+                    <option value="4">
+                        4 hours
+                    </option>
+
+                    <option value="6">
+                        6 hours
+                    </option>
+
+                    <option value="8" selected>
+                        8 hours
+                    </option>
+
+                    <option value="10">
+                        10 hours
+                    </option>
+
+                    <option value="12">
+                        12 hours
+                    </option>
+
+                </select>
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="modal-primary-button">
+
+                SAVE GOAL
+
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     FOCUS TIMER MODAL
+===================================================== -->
+
+<div
+    id="focusModal"
+    class="modal-overlay">
+
+    <div class="modal focus-modal">
+
+        <button
+            class="modal-close focus-close"
+            data-close="focusModal">
+
+            ×
+
+        </button>
+
+
+        <span class="modal-kicker">
+            FOCUS MODE
+        </span>
+
+
+        <h2 id="focusTaskTitle">
+            Focus Session
+        </h2>
+
+
+        <div class="focus-timer">
+
+            <span id="focusTimer">
+                50:00
+            </span>
+
+        </div>
+
+
+        <p id="focusStatus">
+            One session. One goal. No distractions.
+        </p>
+
+
+        <div class="focus-controls">
+
+            <button
+                id="pauseFocusButton"
+                class="secondary-modal-button">
+
+                Pause
+
+            </button>
+
+
+            <button
+                id="stopFocusButton"
+                class="danger-modal-button">
+
+                Stop
+
+            </button>
 
         </div>
 
     </div>
 
-    <script src="script.js"></script>
+</div>
+
+
+
+<!-- =====================================================
+     NOTIFICATION / REMINDER MODAL
+===================================================== -->
+
+<div
+    id="notificationModal"
+    class="modal-overlay">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <div>
+
+                <span class="modal-kicker">
+                    REMINDERS
+                </span>
+
+                <h2>
+                    Study Reminder
+                </h2>
+
+            </div>
+
+            <button
+                class="modal-close"
+                data-close="notificationModal">
+
+                ×
+
+            </button>
+
+        </div>
+
+
+        <form id="reminderForm">
+
+            <label>
+
+                Reminder Message
+
+                <input
+                    id="reminderMessage"
+                    type="text"
+                    placeholder="Time to study Physics!"
+                    required>
+
+            </label>
+
+
+            <label>
+
+                Reminder Time
+
+                <input
+                    id="reminderTime"
+                    type="time"
+                    required>
+
+            </label>
+
+
+            <button
+                type="submit"
+                class="modal-primary-button">
+
+                SET REMINDER
+
+            </button>
+
+        </form>
+
+
+        <div
+            id="reminderList"
+            class="reminder-list">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =====================================================
+     TOAST
+===================================================== -->
+
+<div
+    id="toast"
+    class="toast">
+
+    <span id="toastMessage">
+        Done
+    </span>
+
+</div>
+
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script src="script.js"></script>
+
+  <script>
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./sw.js")
+            .then(() => {
+                console.log("CEE Journey offline mode ready.");
+            })
+            .catch(error => {
+                console.error("Service Worker registration failed:", error);
+            });
+    });
+}
+  </script>
 
 </body>
-</html>
+    </html>
